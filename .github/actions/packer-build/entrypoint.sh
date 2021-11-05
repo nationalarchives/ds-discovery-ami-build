@@ -5,20 +5,21 @@ set -e
 cd "${INPUT_WORKINGDIR:-.}"
 
 # find template file
-if [[ ! -f "$INPUT_TEMPLATEFILE" ]] && [[ $INPUT_TEMPLATEFILE != *.json ]]; then
-    echo "${INPUT_TEMPLATEFILE} does not exit in the working directory (${INPUT_WORKINGDIR})"
-    exit 1
-fi
-
-# find var file
-if [[ ! -f "$INPUT_VARFILE" ]] && [[ $INPUT_VARFILE != *.json ]]; then
-    echo "${INPUT_VARFILE} does not exit in the working directory (${INPUT_WORKINGDIR})"
-    exit 1
+if [[ ! -f "$INPUT_TEMPLATEFILE" ]]; then
+  echo "${INPUT_TEMPLATEFILE} does not exit in the working directory (${INPUT_WORKINGDIR})"
+  exit 1
 fi
 
 set +e
-# Run packer build
-BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFILE}" 2>&1)
+# find var file
+if [[ ! -f "$INPUT_VARFILE" ]]; then
+  # Run packer build
+  BUILD_OUTPUT=$(sh -c "packer build ${INPUT_TEMPLATEFILE}" 2>&1)
+elif
+  # Run packer build
+  BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFILE}" 2>&1)
+fi
+
 BUILD_SUCCESS=$?
 echo "$BUILD_OUTPUT"
 set -e

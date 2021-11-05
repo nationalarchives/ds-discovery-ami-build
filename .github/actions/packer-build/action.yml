@@ -4,12 +4,10 @@ description: 'Run packer build on a template file'
 inputs:
   templateFile:
     description: 'Packer template file to use for packer build'
-    required: false
-    default: 'packer-template.json'
+    required: true
   varFile:
     description: 'Var file to use for packer build'
     required: false
-    default: 'packer-vars.json'
   workingDir:
     description: 'Directory where the packer template and var file reside'
     required: false
