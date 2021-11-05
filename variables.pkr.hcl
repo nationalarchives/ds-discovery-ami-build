@@ -1,14 +1,11 @@
 variable "environment" {
   type    = string
-  default = "dev"
 }
 variable "tier" {
   type    = string
-  default = "api"
 }
 variable "application" {
   type    = string
-  default = "discovery"
 }
 variable "account" {
   type = string
