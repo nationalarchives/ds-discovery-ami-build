@@ -1,7 +1,28 @@
 on:
   push:
     branches:
-      - dev
+      - 'dev'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment - dev, test or live'
+        required: true
+        default: 'dev'
+      tier:
+        description: 'Tier - web or api'
+        required: true
+      account-no:
+        description: 'AWS account no.'
+        required: true
+      vpcId:
+        description: 'VPC id'
+        required: true
+      subnetId:
+        description: 'Subnet id'
+        required: true
+      securityGroupId:
+        description: 'Security group id'
+        required: true
 
 jobs:
   build:
@@ -10,13 +31,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Use lastest Packer
-        uses: hashicorp-contrib/setup-packer@v1
-      - name: Build AMI
-        uses: ./.github/actions/packer-build
-        with:
-          templateFile: 'wincore-2019.pkr.hcl'
-          workingDir: '.'
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: eu-west-2
+        run: |
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-get update && sudo apt-get install packer
+        shell: bash
+      - name: Create AMI
+        run: |
+          packer validate \
+            -var="environment=${{ github.event.inputs.environment }}" /
+            -var="tier=${{ github.event.inputs.tier }}" \
+            -var="application=discovery-wincore" /
+            -var="account=825668827209" /
+            -var="vpcId=vpc-050fab638f733cdbf" /
+            -var="subnetId=subnet-05627bec13d1f7fd1" /
+            -var="securityGroupId=sg-0ea4c6933c6061e3b" /
+            ./wincore-2019.pkr.hcl
+
