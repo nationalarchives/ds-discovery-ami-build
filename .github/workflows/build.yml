@@ -40,7 +40,7 @@ jobs:
         run: |
           packer validate \
             -var="environment=${{ github.event.inputs.environment }}" /
-            -var="tier=${{ github.event.inputs.tier }}" \
+            -var="tier=${{ github.event.inputs.tier }}" /
             -var="application=discovery-wincore" /
             -var="account=825668827209" /
             -var="vpcId=vpc-050fab638f733cdbf" /
