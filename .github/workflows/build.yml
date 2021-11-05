@@ -3,3 +3,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -uses: actions/checkout@dev
+      -name: "install packer"
+      -uses: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+      -uses: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+      -uses: sudo apt-get update && sudo apt-get install packer
