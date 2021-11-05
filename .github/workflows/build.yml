@@ -1,11 +1,16 @@
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -uses: actions/checkout@dev
-      -name: "curl packer"
-      -run: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-      -name: "add repo"
-      -run: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-      -name: "install packer"
-      -run: sudo apt-get update && sudo apt-get install packer
+      - uses: actions/checkout@dev
+      - name: "curl packer"
+        run: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        shell: bash
+      - name: "add repo"
+        run: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        shell: bash
+      - name: "install packer"
+        run: sudo apt-get update && sudo apt-get install packer
+        shell: bash
