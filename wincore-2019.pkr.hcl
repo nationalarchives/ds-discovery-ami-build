@@ -1,3 +1,25 @@
+variable "environment" {
+  type    = string
+}
+variable "tier" {
+  type    = string
+}
+variable "application" {
+  type    = string
+}
+variable "account" {
+  type = string
+}
+variable "vpcId" {
+  type = string
+}
+variable "subnetId" {
+  type = string
+}
+variable "securityGroupId" {
+  type = string
+}
+
 packer {
   required_version = ">= 1.7.0"
 }

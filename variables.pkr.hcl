@@ -1,25 +1,3 @@
-variable "environment" {
-  type    = string
-}
-variable "tier" {
-  type    = string
-}
-variable "application" {
-  type    = string
-}
-variable "account" {
-  type = string
-}
-variable "vpcId" {
-  type = string
-}
-variable "subnetId" {
-  type = string
-}
-variable "securityGroupId" {
-  type = string
-}
-
 locals {
   amiName        = "${var.application}-ami-${var.tier}-{{timestamp}}"
   amiDescription = "Windows Core 2019 - ${var.application} - ${var.tier}"
