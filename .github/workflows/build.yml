@@ -15,7 +15,6 @@ jobs:
         uses: riznob/packer-build-action@v1.5
         with:
           templateFile: 'wincore-2019.pkr.hcl'
-          varFile: 'variables.pkr.hcl'
           workingDir: '.'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
