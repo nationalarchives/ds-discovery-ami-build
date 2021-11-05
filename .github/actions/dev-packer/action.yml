@@ -1,4 +1,4 @@
-name: "Packer"
+name: "Run packer script"
 description: "run packer to build ami"
 inputs:
   environment:
