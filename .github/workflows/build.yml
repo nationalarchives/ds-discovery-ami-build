@@ -12,10 +12,9 @@ jobs:
       - name: Use lastest Packer
         uses: hashicorp-contrib/setup-packer@v1
       - name: Build AMI
-        uses: riznob/packer-build-action@v1.5
+        uses: ./.github/actions/packer-build
         with:
           templateFile: 'wincore-2019.pkr.hcl'
-          varFile: 'variables.pkrvars.hcl'
           workingDir: '.'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

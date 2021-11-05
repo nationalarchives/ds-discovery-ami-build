@@ -1,5 +1,6 @@
 <powershell>
-Set-ExecutionPolicy -ExecutionPolicy bypass -Force
+Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force -ErrorAction Ignore
+#Set-ExecutionPolicy -ExecutionPolicy bypass -Force
 write-output "Running User Data Script"
 write-host "(host) Running User Data Script"
 
