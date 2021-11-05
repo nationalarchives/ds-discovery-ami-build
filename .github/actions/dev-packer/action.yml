@@ -26,4 +26,5 @@ inputs:
     description: "security group id used during build"
     required: true
   run: |
-
+    echo packer
+  shell: bash
