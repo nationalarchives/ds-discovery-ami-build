@@ -14,3 +14,4 @@ jobs:
       - name: "install packer"
         run: sudo apt-get update && sudo apt-get install packer
         shell: bash
+      - uses: ./.github/actions/packer
