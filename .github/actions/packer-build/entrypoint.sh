@@ -15,7 +15,7 @@ set +e
 if [[ ! -f "$INPUT_VARFILE" ]]; then
   # Run packer build
   BUILD_OUTPUT=$(sh -c "packer build ${INPUT_TEMPLATEFILE}" 2>&1)
-elif
+else
   # Run packer build
   BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFILE}" 2>&1)
 fi
