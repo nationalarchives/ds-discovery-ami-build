@@ -26,5 +26,6 @@ inputs:
     description: "security group id used during build"
     required: true
   run: |
-    echo packer
+    echo packer build -var "environment={{ input.environment }}" -var "tier={{ input.tier }}" -var "application=discovery-wincore" -var "account={{ input.account" -var "vpcId={{ input.vpcId }}" -var "subnetId={{ input.subnetId }}" -var "securityGroupId={{ input.securityGroupId }}" wincore-2019.json
+
   shell: bash

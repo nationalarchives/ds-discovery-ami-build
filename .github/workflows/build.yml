@@ -11,3 +11,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Use lastest Packer
         uses: hashicorp-contrib/setup-packer@v1
+      - name: Build AMI
+        uses: riznob/packer-build-action@v1.5
+        with:
+          templateFile: 'wincore-2019.json'
+          workingDir: '.'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
