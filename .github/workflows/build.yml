@@ -38,7 +38,7 @@ jobs:
         shell: bash
       - name: Create AMI
         run: |
-          packer validate \
+          packer validate /
             -var="environment=${{ github.event.inputs.environment }}" /
             -var="tier=${{ github.event.inputs.tier }}" /
             -var="application=discovery-wincore" /
