@@ -4,11 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: "install packer"
-        run: |
-          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-          sudo apt-get update && sudo apt-get install packer
-        shell: bash
-      - uses: ./.github/actions/dev-packer
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use lastest Packer
+        uses: hashicorp-contrib/setup-packer@v1

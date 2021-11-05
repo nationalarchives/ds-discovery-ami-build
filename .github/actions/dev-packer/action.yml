@@ -12,10 +12,10 @@ inputs:
   application:
     description: "Service or application"
     required: true
+    default: "discovery"
   account:
     description: "AWS account id"
     required: true
-    default: ""
   vpcId:
     description: "AWS VPC ID"
     required: true
@@ -25,4 +25,5 @@ inputs:
   securityGroupId:
     description: "security group id used during build"
     required: true
+  run: |
 
