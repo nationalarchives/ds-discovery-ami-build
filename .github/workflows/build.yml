@@ -30,21 +30,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Use lastest Packer
-        run: |
-          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-          sudo apt-get update && sudo apt-get install packer
-        shell: bash
-      - name: Create AMI
-        run: |
-          packer validate /
-            -var="environment=${{ github.event.inputs.environment }}" /
-            -var="tier=${{ github.event.inputs.tier }}" /
-            -var="application=discovery-wincore" /
-            -var="account=825668827209" /
-            -var="vpcId=vpc-050fab638f733cdbf" /
-            -var="subnetId=subnet-05627bec13d1f7fd1" /
-            -var="securityGroupId=sg-0ea4c6933c6061e3b" /
-            wincore-2019.pkr.hcl
 
+      # validate the packer template
+      -name: Validate packer template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: validate
+          arguments: -syntax-only
+          target: wincore-2019.pkr.hcl
+
+      # build artifact
+      - name: Build Artifact
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: build
+          arguments: "-on-error=abort -var environment=dev -var tier=api -var application=discovery-wincore -var account=825668827209 -var vpcId=vpc-050fab638f733cdbf -var subnetId=subnet-05627bec13d1f7fd1 -var securityGroupId=sg-0ea4c6933c6061e3b"
+          target: wincore-2019.pkr.hcl
+        env:
+          PACKER_LOG: 1
