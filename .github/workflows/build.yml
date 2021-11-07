@@ -37,11 +37,11 @@ jobs:
           sudo apt-get update && sudo apt-get install packer
         shell: bash
       - name: Initialise Packer
-        run: |
-          packer init
+        run: packer init
+        shell: bash
       -name: Validate Packer template
-        run: |
-          packer validate -syntax-only
+        run: packer validate -syntax-only
+        shell: bash
       - name: Create AMI
         run: |
           packer build /
@@ -53,9 +53,10 @@ jobs:
             -var="subnetId=subnet-05627bec13d1f7fd1" /
             -var="securityGroupId=sg-0ea4c6933c6061e3b" /
             wincore-2019.pkr.hcl
-          env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_ROLE_EXTERNAL_ID: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
-            AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            PACKER_LOG: 1
+        shell: bash
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ROLE_EXTERNAL_ID: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
+          AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          PACKER_LOG: 1
