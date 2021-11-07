@@ -40,10 +40,10 @@ jobs:
         run: ls -alh
         shell: bash
       - name: Initialise Packer
-        run: packer init
+        run: packer init wincore-2019.pkr.hcl
         shell: bash
       - name: Validate Packer template
-        run: packer validate -syntax-only
+        run: packer validate -syntax-only wincore-2019.pkr.hcl
         shell: bash
       - name: Create AMI
         run: |
