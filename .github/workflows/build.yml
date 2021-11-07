@@ -39,7 +39,7 @@ jobs:
       - name: Initialise Packer
         run: packer init
         shell: bash
-      -name: Validate Packer template
+      - name: Validate Packer template
         run: packer validate -syntax-only
         shell: bash
       - name: Create AMI
