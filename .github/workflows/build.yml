@@ -33,6 +33,10 @@ jobs:
       - name: Validate packer template
         uses: hashicorp/packer-github-actions@master
         with:
+          command: init
+      - name: Validate packer template
+        uses: hashicorp/packer-github-actions@master
+        with:
           command: validate
           arguments: "-syntax-only"
           target: wincore-2019.pkr.hcl
