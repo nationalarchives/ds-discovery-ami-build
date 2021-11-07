@@ -56,14 +56,6 @@ locals {
 packer {
   required_version = ">= 1.7.0"
 }
-packer {
-  required_plugins {
-    amazon = {
-      version = ">= 0.0.1"
-      source = "github.com/hashicorp/amazon"
-    }
-  }
-}
 
 data "amazon-ami" "ami" {
   filters = {
