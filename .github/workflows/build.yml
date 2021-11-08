@@ -24,6 +24,7 @@ jobs:
       - name: Validate Packer template
         run: packer validate -syntax-only wincore-2019.pkr.hcl
         shell: bash
+      - name: Show Credentials
       - name: Create AMI for api
         run: packer build -var="environment=dev" -var="tier=api" -var="application=discovery-wincore" -var="account=825668827209" -var="vpcId=vpc-050fab638f733cdbf" -var="subnetId=subnet-05627bec13d1f7fd1" -var="securityGroupId=sg-0ea4c6933c6061e3b" wincore-2019.pkr.hcl
         shell: bash
@@ -32,4 +33,5 @@ jobs:
           AWS_ROLE_EXTERNAL_ID: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
           PACKER_LOG: 1
