@@ -15,19 +15,12 @@ jobs:
           sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
           sudo apt-get update && sudo apt-get install packer
         shell: bash
-      - name: Where am I?
-        run: ls -alh
-        shell: bash
       - name: Initialise Packer
         run: packer init wincore-2019.pkr.hcl
         shell: bash
       - name: Validate Packer template
         run: packer validate -syntax-only wincore-2019.pkr.hcl
         shell: bash
-      - name: Show Credentials
-        run: echo $AWS_DEFAULT_REGION
-        env:
-          AWS_DEFAULT_REGION: eu-west-2
       - name: Create AMI for api
         run: packer build -var="environment=dev" -var="tier=api" -var="application=discovery-wincore" -var="account=825668827209" -var="vpcId=vpc-050fab638f733cdbf" -var="subnetId=subnet-05627bec13d1f7fd1" -var="securityGroupId=sg-0ea4c6933c6061e3b" wincore-2019.pkr.hcl
         shell: bash
