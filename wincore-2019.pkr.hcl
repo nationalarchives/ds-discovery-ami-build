@@ -105,7 +105,6 @@ source "amazon-ebs" "ebs" {
   }
 
   security_group_id    = var.securityGroupId
-  source_ami           = data.amazon-ami.ami.id
   ssh_interface        = "private_ip"
   ssh_keypair_name     = local.ssh_keypair_name
   ssh_private_key_file = local.ssh_private_key_file
