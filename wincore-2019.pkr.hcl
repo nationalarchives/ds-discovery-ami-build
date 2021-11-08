@@ -86,7 +86,6 @@ source "amazon-ebs" "ebs" {
     owners = [
       "801119661308"]
 
-    profile = "local.profile"
     region  = "eu-west-2"
   }
 
