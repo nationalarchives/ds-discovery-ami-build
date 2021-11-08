@@ -65,10 +65,12 @@ packer {
 }
 
 source "amazon-ebs" "ebs" {
-  ami_description             = local.amiDescription
-  ami_name                    = local.amiName
-  ami_users                   = [
+  ami_description = local.amiDescription
+  ami_name        = local.amiName
+
+  ami_users = [
     local.ami_users]
+
   associate_public_ip_address = false
   communicator                = "winrm"
   iam_instance_profile        = local.iam_instance_profile
@@ -85,8 +87,6 @@ source "amazon-ebs" "ebs" {
 
     owners = [
       "801119661308"]
-
-    region  = "eu-west-2"
   }
 
   launch_block_device_mappings {
