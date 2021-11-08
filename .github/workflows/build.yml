@@ -2,27 +2,6 @@ on:
   push:
     branches:
       - 'dev'
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment - dev, test or live'
-        required: true
-        default: 'dev'
-      tier:
-        description: 'Tier - web or api'
-        required: true
-      account-no:
-        description: 'AWS account no.'
-        required: true
-      vpcId:
-        description: 'VPC id'
-        required: true
-      subnetId:
-        description: 'Subnet id'
-        required: true
-      securityGroupId:
-        description: 'Security group id'
-        required: true
 
 jobs:
   build:
@@ -45,7 +24,7 @@ jobs:
       - name: Validate Packer template
         run: packer validate -syntax-only wincore-2019.pkr.hcl
         shell: bash
-      - name: Create AMI
+      - name: Create AMI for api
         run: packer build -var="environment=dev" -var="tier=api" -var="application=discovery-wincore" -var="account=825668827209" -var="vpcId=vpc-050fab638f733cdbf" -var="subnetId=subnet-05627bec13d1f7fd1" -var="securityGroupId=sg-0ea4c6933c6061e3b" wincore-2019.pkr.hcl
         shell: bash
         env:
