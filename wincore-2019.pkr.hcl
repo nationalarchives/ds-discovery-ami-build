@@ -59,27 +59,10 @@ packer {
   required_plugins {
     amazon = {
       version = ">= 0.0.1"
-      source = "github.com/hashicorp/amazon"
+      source  = "github.com/hashicorp/amazon"
     }
   }
 }
-
-data "amazon-ami" "ami" {
-  filters = {
-    name                = "Windows_Server-2019-English-Core-Base*"
-    root-device-type    = "ebs"
-    virtualization-type = "hvm"
-  }
-
-  most_recent = true
-
-  owners = [
-    "801119661308"]
-
-  profile = "local.profile"
-  region  = "eu-west-2"
-}
-
 
 source "amazon-ebs" "ebs" {
   ami_description             = local.amiDescription
@@ -90,6 +73,22 @@ source "amazon-ebs" "ebs" {
   communicator                = "winrm"
   iam_instance_profile        = local.iam_instance_profile
   instance_type               = "t3a.large"
+
+  source_ami_filter {
+    filters = {
+      name                = "Windows_Server-2019-English-Core-Base*"
+      root-device-type    = "ebs"
+      virtualization-type = "hvm"
+    }
+
+    most_recent = true
+
+    owners = [
+      "801119661308"]
+
+    profile = "local.profile"
+    region  = "eu-west-2"
+  }
 
   launch_block_device_mappings {
     delete_on_termination = true
